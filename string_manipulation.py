@@ -12,7 +12,7 @@ def insert_spaces(phrase):
     #TODO: refactor (maybe pull things into more functions for testing)
     phrase = list(phrase)
     spaces = list(range(len(phrase)))
-    random.shuffle(spaces)
+    random.shuffle(spaces) #TODO: wrap in service for test purposes?
 
     #truncate to create max spaces
     max_spaces = int(len(phrase)/2)
@@ -21,7 +21,7 @@ def insert_spaces(phrase):
     #loop through space indexes and randomly delete some (to vary number of spaces)
     selected_spaces = []
     for i in range(len(spaces)-1):
-        coin_flip = random.randrange(2)
+        coin_flip = random.randrange(2) #TODO: wrap in service for test purposes?
         if coin_flip == True:
             selected_spaces.append(spaces[i])
 
