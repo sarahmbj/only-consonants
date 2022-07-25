@@ -55,6 +55,7 @@ class QuizEngine:
 
     def run_quiz(self):
         print(f"Welcome to Only Consonants. Press enter to get the first question.")
+        print(f'Available topics: {self.topics}')
         input('')
         while self.has_more_questions() == True:
             print(self.next_question())
@@ -69,7 +70,7 @@ class QuizEngine:
     def next_round(self):
         self.current_round_number +=1
         self.current_round_topic
-        #TODO: split into rounds by topic
+        #TODO: finish this! split into rounds by topic
 
 
 #TODO: add ability to select topic at start of game?
