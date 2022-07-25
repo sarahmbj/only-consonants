@@ -23,7 +23,8 @@ if __name__ == '__main__':
     for i in list(question_df.index.values):
         question_text = question_df['Question'].iloc[i]
         correct_answer = question_df['Phrase'].iloc[i]
-        new_question = Question(question_text, correct_answer)
+        question_topic = question_df['Topic'].iloc[i]
+        new_question = Question(question_text, correct_answer, question_topic)
         question_bank.append(new_question)
 
     quiz = QuizEngine(question_bank)
