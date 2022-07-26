@@ -42,7 +42,7 @@ class QuizEngine:
 
     def check_answer(self, user_answer):
         """Check the user's answer against the correct answer and maintain the score"""
-        #TODO: strip punctuation when validating answers
+
         only_alpha = re.compile(r'[^a-z\s]')
 
         correct_answer = self.current_question.correct_answer
