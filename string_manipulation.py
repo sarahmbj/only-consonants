@@ -36,7 +36,7 @@ def insert_spaces(phrase):
     return phrase_with_spaces
 
 
-def create_questions_from_answers(answer):
+def create_question_from_answer(answer):
         question = answer.lower()
         question = leave_only_consonants(question)
         question = insert_spaces(question)
