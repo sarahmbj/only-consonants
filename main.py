@@ -2,7 +2,7 @@ from question_model import QuestionBank
 from quiz_engine import QuizEngine
 
 #overall parameters
-question_file = "small_test_data.csv"
+question_file = "test_data.csv"
 
 
 if __name__ == '__main__':
