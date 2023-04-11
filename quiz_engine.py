@@ -1,7 +1,7 @@
 import re
 class QuizEngine:
 
-    def __init__(self, question_bank):
+    def __init__(self, question_bank, max_rounds=3, max_questions_per_round=5):
         self.score = 0
 
         self.topics = question_bank.topics
@@ -16,7 +16,8 @@ class QuizEngine:
         self.question_no = 0
         self.current_question = None
         
-        # self.total_rounds = 3 #Allow player to set this? Or always have 3?
+        self.max_rounds = max_rounds
+        self.max_questions_per_round = max_questions_per_round
 
     def start_new_round(self):
         self.current_round_number += 1
@@ -29,15 +30,22 @@ class QuizEngine:
         f"\n Topic: {self.current_round_topic}")
         
     def quiz_has_more_rounds(self):
-        if len(self.topics_unplayed) > 0:
-            return True
-        else:
+        if len(self.topics_unplayed) < 1:
             return False
+        if self.current_round_number >= self.max_rounds:
+            return False
+        else:
+            return True
+
     
     def round_has_more_questions(self):
         """To check if the current round has more questions"""
-        
-        return self.current_round_questions_played < len(self.current_round_question_list)
+        if self.current_round_questions_played >= len(self.current_round_question_list):
+            return False
+        if self.current_round_questions_played >= self.max_questions_per_round:
+            return False
+        else:
+            return True
 
 
     def next_question(self):
