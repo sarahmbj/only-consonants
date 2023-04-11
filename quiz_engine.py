@@ -3,13 +3,15 @@ class QuizEngine:
 
     def __init__(self, question_bank):
         self.score = 0
-        self.current_round_number = 0
-        self.current_round_topic = None
-        self.questions = None
 
         self.topics = question_bank.topics
         self.topics_unplayed = self.topics
         self.topics_played = []
+
+        self.current_round_number = 0
+        self.current_round_topic = None
+        self.current_round_question_list = None
+        self.current_round_questions_played = 0
 
         self.question_no = 0
         self.current_question = None
@@ -18,9 +20,10 @@ class QuizEngine:
 
     def start_new_round(self):
         self.current_round_number += 1
+        self.current_round_questions_played = 0
         selected_topic = self.topics_unplayed.pop()
         self.current_round_topic = selected_topic.topic_name
-        self.questions = selected_topic.questions
+        self.current_round_question_list = selected_topic.questions
 
         print(f"\n\n**** Starting Round {self.current_round_number} ****"
         f"\n Topic: {self.current_round_topic}")
@@ -34,14 +37,15 @@ class QuizEngine:
     def round_has_more_questions(self):
         """To check if the current round has more questions"""
         
-        return self.question_no < len(self.questions)
+        return self.current_round_questions_played < len(self.current_round_question_list)
 
 
     def next_question(self):
         """Get the next question by incrementing the question number"""
         
-        self.current_question = self.questions[self.question_no]
+        self.current_question = self.current_round_question_list[self.current_round_questions_played]
         self.question_no += 1
+        self.current_round_questions_played += 1
         q_text = self.current_question.question_text
         q_topic = self.current_question.question_topic
         return f"Topic: {q_topic} \n Q.{self.question_no}: {q_text}"
@@ -79,7 +83,7 @@ class QuizEngine:
         """Get the number of correct answers, wrong answers, and score percentage."""
         
         wrong = self.question_no - self.score
-        score_percent = int(self.score / self.question_no * 100)
+        score_percent = int(self.score / self.total * 100)
         return (self.score, wrong, score_percent)
 
     def explain_rules(self):

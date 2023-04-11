@@ -5,7 +5,9 @@ from string_manipulation import create_question_from_answer
 class QuestionBank:
     def __init__(self, question_file):
         self.question_df = pd.read_csv(question_file)
+        self.topic_names = self.question_df.Topic.unique()
         self.topics = self.create_topics()
+        self.total_questions = len(self.question_df.index)
 
     def get_question_df(self):
         print(self.question_df)
