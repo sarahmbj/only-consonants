@@ -1,7 +1,8 @@
 import re
+import random
 class QuizEngine:
 
-    def __init__(self, question_bank, max_rounds=3, max_questions_per_round=5):
+    def __init__(self, question_bank, max_rounds=3, max_questions_per_round=3, shuffle_topics=True, shuffle_questions=True):
         self.score = 0
 
         self.topics = question_bank.topics
@@ -18,13 +19,19 @@ class QuizEngine:
         
         self.max_rounds = max_rounds
         self.max_questions_per_round = max_questions_per_round
+        self.shuffle_questions = shuffle_questions
+        self.shuffle_topics = shuffle_topics
 
     def start_new_round(self):
         self.current_round_number += 1
         self.current_round_questions_played = 0
+        if self.shuffle_topics is True:
+            random.shuffle(self.topics_unplayed)
         selected_topic = self.topics_unplayed.pop()
         self.current_round_topic = selected_topic.topic_name
         self.current_round_question_list = selected_topic.questions
+        if self.shuffle_questions is True:
+            random.shuffle(self.current_round_question_list)
 
         print(f"\n\n**** Starting Round {self.current_round_number} ****"
         f"\n Topic: {self.current_round_topic}")
@@ -36,7 +43,6 @@ class QuizEngine:
             return False
         else:
             return True
-
     
     def round_has_more_questions(self):
         """To check if the current round has more questions"""
@@ -57,6 +63,7 @@ class QuizEngine:
         q_text = self.current_question.question_text
         q_topic = self.current_question.question_topic
         return f"Topic: {q_topic} \n Q.{self.question_no}: {q_text}"
+
 
     def ask_question(self):
         input("Press enter for next question \n")
